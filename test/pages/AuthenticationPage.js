@@ -12,6 +12,10 @@ class AuthenticationPage {
         await this.emailInput.setValue(email);
     }
 
+    async getEmailInputValue() {
+        return await this.emailInput.getValue();
+    }
+
     async clickSignup() {
         await this.signupButton.waitForDisplayed();
         await this.signupButton.click();
@@ -40,6 +44,10 @@ class AuthenticationPage {
     async enterPassword(password) {
         await this.passwordInput.waitForDisplayed();
         await this.passwordInput.setValue(password);
+    }
+
+    async getPasswordInputValue() {
+        return await this.passwordInput.getValue();
     }
 }
 

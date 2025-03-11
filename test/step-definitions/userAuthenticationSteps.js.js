@@ -1,4 +1,5 @@
 const { Given, When, Then } = require('@wdio/cucumber-framework');
+const { expect, assert } = require('chai');
 const testData = require('../utils/testData');
 const AuthenticationPage = require('../pages/AuthenticationPage');
 
@@ -13,6 +14,9 @@ When(/^the user clicks on "Get Trello for free"$/, async () => {
 When(/^the user enters a valid email "([^"]*)"$/, async (emailKey) => {
     const email = testData[emailKey].email;
     await AuthenticationPage.enterEmail(email);
+
+    const emailValue = await AuthenticationPage.getEmailInputValue();
+    expect(emailValue).to.equal(email);
 });
 
 When(/^the user clicks the signup button$/, async () => {
@@ -30,6 +34,9 @@ When(/^the user clicks the continue button$/, async () => {
 When(/^the user enters a valid password "([^"]*)"$/, async (emailKey) => {
     const password = testData[emailKey].password;
     await AuthenticationPage.enterPassword(password);
+
+    const passwordValue = await AuthenticationPage.getPasswordInputValue();
+    expect(passwordValue).to.equal(password);
 });
 
 Then(/^the user should be redirected to "([^"]*)"$/, async (expectedUrl) => {
@@ -37,4 +44,7 @@ Then(/^the user should be redirected to "([^"]*)"$/, async (expectedUrl) => {
         async () => (await browser.getUrl()).includes(expectedUrl),
         { timeout: 7000, timeoutMsg: `Expected URL: ${expectedUrl}, but got ${await browser.getUrl()}` }
     );
+
+    const currentUrl = await browser.getUrl();
+    assert.include(currentUrl, expectedUrl, `URL should include ${expectedUrl}`);
 });

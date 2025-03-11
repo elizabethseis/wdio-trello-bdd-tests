@@ -1,4 +1,5 @@
 const { When, Then } = require('@wdio/cucumber-framework');
+const { expect } = require('chai'); 
 const BoardManagementPage = require('../pages/BoardManagementPage');
 const CardManagmentPage = require('../pages/CardMangementPage');
 const testData = require('../utils/testData');
@@ -20,7 +21,7 @@ Then(/the new card card_name should appear on the board$/, async () => {
     const card = await CardManagmentPage.cardElement(createdCardTitle);
     await card.waitForExist(); 
     await card.waitForDisplayed();   
-    await expect(card).toBeDisplayed();
+    expect(await card.isDisplayed()).to.be.true;
 });
 
 

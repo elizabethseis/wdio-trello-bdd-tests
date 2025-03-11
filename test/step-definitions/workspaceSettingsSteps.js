@@ -1,4 +1,6 @@
 const { When, Then } = require('@wdio/cucumber-framework');
+const chai = require('chai');
+chai.should(); 
 const HomePage = require('../pages/HomePage');
 const WorkspaceSettingsPage = require('../pages/WorkspaceSettingsPage');
 const testData = require('../utils/testData');
@@ -21,5 +23,5 @@ When(/^the user clicks on the save button$/, async () => {
 Then(/^the "([^"]*)" should be reflected in the workspace details$/, async (workspaceKey) => {
     const expectedWorkspaceName = testData[workspaceKey].name;
     const actualWorkspaceName = await WorkspaceSettingsPage.getWorkspaceName();
-    expect(expectedWorkspaceName).toBe(actualWorkspaceName);
+    actualWorkspaceName.should.equal(expectedWorkspaceName);
 });
