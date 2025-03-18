@@ -8,34 +8,34 @@ Given(/^the user is on the "([^"]*)" home page$/, async (url) => {
 });
 
 When(/^the user clicks on "Get Trello for free"$/, async () => {
-    await AuthenticationPage.clickGetTrelloForFree();
+    await AuthenticationPage.auth.clickGetTrelloForFree();
 });
 
 When(/^the user enters a valid email "([^"]*)"$/, async (emailKey) => {
     const email = testData[emailKey].email;
-    await AuthenticationPage.enterEmail(email);
+    await AuthenticationPage.auth.enterEmail(email);
 
-    const emailValue = await AuthenticationPage.getEmailInputValue();
+    const emailValue = await AuthenticationPage.auth.getEmailInputValue();
     expect(emailValue).to.equal(email);
 });
 
 When(/^the user clicks the signup button$/, async () => {
-    await AuthenticationPage.clickSignup();
+    await AuthenticationPage.auth.clickSignup();
 });
 
 When(/^the user clicks the login button$/, async () => {
-    await AuthenticationPage.clickLogin();
+    await AuthenticationPage.auth.clickLogin();
 });
 
 When(/^the user clicks the continue button$/, async () => {
-    await AuthenticationPage.clickContinue();
+    await AuthenticationPage.auth.clickContinue();
 });
 
 When(/^the user enters a valid password "([^"]*)"$/, async (emailKey) => {
     const password = testData[emailKey].password;
-    await AuthenticationPage.enterPassword(password);
+    await AuthenticationPage.auth.enterPassword(password);
 
-    const passwordValue = await AuthenticationPage.getPasswordInputValue();
+    const passwordValue = await AuthenticationPage.auth.getPasswordInputValue();
     expect(passwordValue).to.equal(password);
 });
 

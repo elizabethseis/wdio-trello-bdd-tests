@@ -4,21 +4,21 @@ const HomePage = require('../pages/HomePage');
 const ManageProfilePage = require('../pages/ManageProfilePage');
 
 When(/^the user clicks on login into the invite page$/, async () => {
-    await AuthenticationPage.clickLoginInvite();
+    await AuthenticationPage.auth.clickLoginInvite();
 });
 
 When(/^the user clicks on the member menu$/, async () => {
-    await HomePage.clickMemberMenu();
+    await HomePage.home.clickMemberMenu();
 });
 
 When(/^the user selects Manage account$/, async () => {
-    await HomePage.clickManageAccount();
+    await HomePage.home.clickManageAccount();
 });
 
 When(/^the user switches to the Manage Account window$/, async () => {
-    await ManageProfilePage.switchToWindow();
+    await ManageProfilePage.manageProfile.switchToWindow();
 });
 
 When(/^the user edits their location$/, async () => {
-    await ManageProfilePage.editLocation();
+    await ManageProfilePage.manageProfile.editLocation();
 });

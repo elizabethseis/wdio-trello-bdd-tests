@@ -7,22 +7,19 @@ const testData = require('../utils/testData');
 let createdListTitle;
 
 When(/^the user clicks on Add a list$/, async () => {
-    await BoardManagementPage.clickAddList();
+    await BoardManagementPage.board.clickAddList();
 });
 
-When(/enters the list name "([^"]*)"  and clicks on the Add list button$/, async (listKey) => {
+When(/enters the list name "([^"]*)"$/, async (listKey) => {
     createdListTitle = testData[listKey].title;
-    await ListManagementPage.enterListName(createdListTitle);
-    await ListManagementPage.clickAddListToBoard(); 
+    await ListManagementPage.listManagement.enterListName(createdListTitle); 
 });
 
-Then(/the new list list_name should appear on the board$/, async () => {
-    const list = await ListManagementPage.listElement(createdListTitle);
-    expect(await list.isDisplayed()).to.be.true;
-})
+When(/clicks on the Add list button$/, async () => {
+    await ListManagementPage.listManagement.clickAddListToBoard(); 
+});
 
-Then(/enters the board name "([^"]*)" and clicks on the create button$/, async (boardKey) => {
-    createdBoardTitle = testData[boardKey].title;
-    await BoardManagementPage.enterBoardTitle(createdBoardTitle);
-    await BoardManagementPage.clickCreateBoard();
+Then(/the new list should appear on the board$/, async () => {
+    const list = await ListManagementPage.listManagement.listElement(createdListTitle);
+    expect(await list.isDisplayed()).to.be.true;
 });

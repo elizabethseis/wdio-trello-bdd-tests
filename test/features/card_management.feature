@@ -10,11 +10,14 @@ Feature: Card Management
     When the user clicks the continue button
     Then the user should be redirected to "https://trello.com/b/1s2GyOuN/mi-tablero-de-trello"
     When the user clicks on the create button
-    When selects create board
-    Then enters the board name "board" and clicks on the create button
+    When the user clicks on Create Board
+    And enters the board name "board" 
+    And clicks on the create button
     When the user clicks on Add a list
-    When enters the list name "list"  and clicks on the Add list button
-    Then the new list list_name should appear on the board
-    When the user clicks on Add a card under the list_name list
-    When enters the card name "card" and clicks on the add button
-    Then the new card card_name should appear on the board
+    And enters the list name "list"  
+    And clicks on the Add list button
+    Then the new list should appear on the board
+    When the user clicks on Add a card under the list
+    And enters the card name "card" 
+    And clicks on the add button
+    Then the new card should appear on the board
