@@ -21,7 +21,7 @@ exports.config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/features/**/*.feature'
+        './src/features/**/*.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -129,8 +129,8 @@ exports.config = {
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
         require: [
-            './test/step-definitions/*.js',
-            './test/hooks/globalHooks.js'
+            './src/step-definitions/*.js',
+            './src/hooks/globalHooks.js'
         ],
         timeout: 60000,
         // <boolean> show full backtrace for errors
