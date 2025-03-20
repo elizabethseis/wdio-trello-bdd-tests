@@ -2,6 +2,7 @@ class LoginFormComponent {
     get emailInput() { return $('input[type="email"]'); }
     get continueButton() { return $('#login-submit'); }
     get passwordInput() { return $('#password'); }
+    get signupButton() { return $('#signup-submit'); }
 
     async enterEmail(email) {
         await this.emailInput.waitForDisplayed();
@@ -24,6 +25,11 @@ class LoginFormComponent {
 
     async getPasswordInputValue() {
         return await this.passwordInput.getValue();
+    }
+
+    async clickSignup() {
+        await this.signupButton.waitForDisplayed();
+        await this.signupButton.click();
     }
 
 }

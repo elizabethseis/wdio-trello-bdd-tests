@@ -21,11 +21,11 @@ When(/^the user enters a valid email "([^"]*)"$/, async (emailKey) => {
 });
 
 When(/^the user clicks the signup button$/, async () => {
-    await AuthenticationPage.auth.clickSignup();
+    await AuthenticationPage.loginForm.clickSignup();
 });
 
 When(/^the user clicks the login button$/, async () => {
-    await AuthenticationPage.auth.clickLogin();
+    await HomePage.header.clickLogin();
 });
 
 When(/^the user clicks the continue button$/, async () => {

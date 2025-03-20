@@ -4,7 +4,7 @@ const HomePage = require('../pages/HomePage');
 const ManageProfilePage = require('../pages/ManageProfilePage');
 
 When(/^the user clicks on login into the invite page$/, async () => {
-    await AuthenticationPage.auth.clickLoginInvite();
+    await AuthenticationPage.loginInvite.clickLoginInvite();
 });
 
 When(/^the user clicks on the member menu$/, async () => {
