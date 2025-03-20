@@ -1,9 +1,9 @@
-const manageProfileComponent = require('../components/ManageProfileComponent');
+const AboutYouComponent = require('../components/manageProfile/profileAndVisibility/AboutYouComponent');
 
 class ManageProfilePage {
     
     constructor() {
-        this.manageProfile = manageProfileComponent;
+        this.aboutYou = AboutYouComponent;
     }
 
 }
