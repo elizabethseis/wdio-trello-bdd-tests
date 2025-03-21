@@ -1,5 +1,5 @@
-class WorkspaceSettingsPage {
-    
+class WorkspaceSettingsComponent {
+
     get editIcon() { return $('span[data-testid=EditIcon]'); }
     get workspaceName() { return $('#displayName'); }
     get saveButton() { return $('button[type=submit]'); }
@@ -24,6 +24,7 @@ class WorkspaceSettingsPage {
         await this.workspaceNameLabel.waitForDisplayed();
         return await this.workspaceNameLabel.getText();
     }
+    
 }
 
-module.exports = new WorkspaceSettingsPage();
+module.exports = new WorkspaceSettingsComponent();
