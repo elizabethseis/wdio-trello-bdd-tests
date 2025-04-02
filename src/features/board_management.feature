@@ -5,16 +5,20 @@ Background:
     When the user clicks on login into the invite page
     Then the user should be redirected to "https://id.atlassian.com/login"
     When the user enters a valid email "existing_user"
-    When the user clicks the continue button
+    And the user clicks the continue button
     When the user enters a valid password "existing_user"
-    When the user clicks the continue button
+    And the user clicks the continue button
     Then the user should be redirected to "https://trello.com/b/1s2GyOuN/mi-tablero-de-trello"
-    When the user clicks on the create button
+    And the user clicks on the create button
 
   Scenario: Create a new board
-    When selects create board
-    Then enters the board name "board" and clicks on the create button, the board is displayed into the board list
+    When the user clicks on Create Board
+    And enters the board name "board" 
+    And clicks on the create button
+    Then the board should be displayed into the board list
 
   Scenario: Search for an existing board
-    When selects create board
-    Then enters the board name "board" and clicks on the create button, the board is displayed into the search list
+    When the user clicks on Create Board
+    And enters the board name "board"
+    And clicks on the create button
+    Then the board should be displayed into the search list

@@ -21,7 +21,7 @@ exports.config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/features/**/*.feature'
+        './src/features/**/*.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -50,16 +50,7 @@ exports.config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome',
-        'goog:chromeOptions': {
-            args: ['--headless', '--disable-gpu', '--window-size=1920,1080']
-        }
-    },
-    {
-        browserName: 'firefox',
-        'moz:firefoxOptions': {
-            args: ['-headless']
-        }
+        browserName: 'chrome'
     }],
 
     //
@@ -138,8 +129,8 @@ exports.config = {
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
         require: [
-            './test/step-definitions/*.js',
-            './test/hooks/globalHooks.js'
+            './src/step-definitions/*.js',
+            './src/hooks/globalHooks.js'
         ],
         timeout: 60000,
         // <boolean> show full backtrace for errors
