@@ -6,6 +6,7 @@ const testData = require('../utils/testData');
 let createdListTitle;
 
 When(/^the user clicks on Add a list$/, async () => {
+    await browser.pause(3000);
     await BoardManagementPage.boardList.clickAddList();
 });
 

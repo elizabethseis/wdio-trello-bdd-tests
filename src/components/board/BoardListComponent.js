@@ -61,7 +61,6 @@ class BoardListComponent {
 
     async clickAddList() {
         await this.addListButton.waitForDisplayed();
-        await this.addListButton.click();
     }
 
     async clickAddCard() {

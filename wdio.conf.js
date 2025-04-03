@@ -1,3 +1,6 @@
+const {existsSync, mkdirSync} = require('fs');
+const allure = require('allure-commandline');
+
 exports.config = {
     //
     // ====================
@@ -123,7 +126,18 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: ['spec', ['junit', {
+        outputDir: './artifacts/report/junit',
+        outputFileFormat: function(options) {
+          return `results-${options.cid}.xml`;
+        },
+      }],
+      ['allure', {
+        outputDir: './artifacts/report/allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+      }],
+    ],
 
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
@@ -157,7 +171,7 @@ exports.config = {
         ignoreUndefinedDefinitions: false
     },
 
-    beforeSession: function (config, capabilities, specs) {
+    beforeSession: function (capabilities, specs) {
         browser.reloadSession();
     },
 
@@ -207,7 +221,7 @@ exports.config = {
      */
     before: function (capabilities, specs) {
         browser.maximizeWindow();
-    }
+    },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
@@ -318,8 +332,41 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: function() {
+        const reportError = new Error('Could not generate Allure report');
+        const generation = allure(['generate', 'allure-results', '--clean']);
+        return new Promise((resolve, reject) => {
+          const generationTimeout = setTimeout(
+              () => reject(reportError),
+              5000);
+    
+          generation.on('exit', function(exitCode) {
+            clearTimeout(generationTimeout);
+    
+            if (exitCode !== 0) {
+              return reject(reportError);
+            }
+    
+            console.log('Allure report successfully generated');
+            resolve();
+          });
+        });
+      },
+
+      afterTest: async (test, context, {error, result, duration, passed, retries}) => {
+        if (error) {
+          console.log(`Screenshot for the failed test ${test.title} is saved`);
+          const filename = test.title + '.png';
+          const dirPath = './artifacts/screenshots/';
+    
+          if (!existsSync(dirPath)) {
+            mkdirSync(dirPath, {
+              recursive: true,
+            });
+          }
+          await browser.saveScreenshot(dirPath + filename);
+        }
+      }
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session

@@ -4,20 +4,25 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "wdio": "wdio run ./wdio.conf.js"
+    "wdio": "wdio run ./wdio.conf.js",
+    "allure-report": "sh -c 'npx allure generate --clean artifacts/report/allure-results -o allure-report && npx allure open allure-report'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@wdio/allure-reporter": "^9.12.3",
     "@wdio/cli": "^9.10.0",
     "@wdio/cucumber-framework": "^9.9.0",
     "@wdio/firefox-profile-service": "^9.10.1",
+    "@wdio/junit-reporter": "^9.12.3",
     "@wdio/local-runner": "^9.10.0",
     "@wdio/mocha-framework": "^9.9.0",
-    "@wdio/spec-reporter": "^9.9.0",
+    "@wdio/spec-reporter": "^9.12.3",
     "@wdio/visual-service": "^6.3.2",
-    "chai": "^5.2.0"
+    "allure-commandline": "^2.33.0",
+    "chai": "^5.2.0",
+    "wdio-html-nice-reporter": "^8.1.7"
   }
 }
