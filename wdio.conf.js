@@ -1,3 +1,6 @@
+const {existsSync, mkdirSync} = require('fs');
+const allure = require('allure-commandline');
+
 exports.config = {
     //
     // ====================
@@ -21,7 +24,7 @@ exports.config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/features/**/*.feature'
+        './src/features/**/*.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -50,16 +53,7 @@ exports.config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome',
-        'goog:chromeOptions': {
-            args: ['--headless', '--disable-gpu', '--window-size=1920,1080']
-        }
-    },
-    {
-        browserName: 'firefox',
-        'moz:firefoxOptions': {
-            args: ['-headless']
-        }
+        browserName: 'chrome'
     }],
 
     //
@@ -132,14 +126,25 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: ['spec', ['junit', {
+        outputDir: './artifacts/report/junit',
+        outputFileFormat: function(options) {
+          return `results-${options.cid}.xml`;
+        },
+      }],
+      ['allure', {
+        outputDir: './artifacts/report/allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+      }],
+    ],
 
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
         require: [
-            './test/step-definitions/*.js',
-            './test/hooks/globalHooks.js'
+            './src/step-definitions/*.js',
+            './src/hooks/globalHooks.js'
         ],
         timeout: 60000,
         // <boolean> show full backtrace for errors
@@ -166,7 +171,7 @@ exports.config = {
         ignoreUndefinedDefinitions: false
     },
 
-    beforeSession: function (config, capabilities, specs) {
+    beforeSession: function (capabilities, specs) {
         browser.reloadSession();
     },
 
@@ -216,7 +221,7 @@ exports.config = {
      */
     before: function (capabilities, specs) {
         browser.maximizeWindow();
-    }
+    },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
@@ -327,8 +332,41 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: function() {
+        const reportError = new Error('Could not generate Allure report');
+        const generation = allure(['generate', 'allure-results', '--clean']);
+        return new Promise((resolve, reject) => {
+          const generationTimeout = setTimeout(
+              () => reject(reportError),
+              5000);
+    
+          generation.on('exit', function(exitCode) {
+            clearTimeout(generationTimeout);
+    
+            if (exitCode !== 0) {
+              return reject(reportError);
+            }
+    
+            console.log('Allure report successfully generated');
+            resolve();
+          });
+        });
+      },
+
+      afterTest: async (test, context, {error, result, duration, passed, retries}) => {
+        if (error) {
+          console.log(`Screenshot for the failed test ${test.title} is saved`);
+          const filename = test.title + '.png';
+          const dirPath = './artifacts/screenshots/';
+    
+          if (!existsSync(dirPath)) {
+            mkdirSync(dirPath, {
+              recursive: true,
+            });
+          }
+          await browser.saveScreenshot(dirPath + filename);
+        }
+      }
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session

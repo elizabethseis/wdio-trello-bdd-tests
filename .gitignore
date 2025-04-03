@@ -1,26 +1,19 @@
-
 node_modules/
-package-lock.json
 
+# Allure reports
+/allure-report/
+/artifacts/
 
-allure-report/
-allure-results/
-logs/
-errorShots/
-
+# Environment files
 .env
 .env.local
 
-
+# Editor & system configs
 .vscode/
-
-
-.DS_Store
-
-
 .idea/
+.DS_Store
 *.iml
 
-
+# Logs
 *.log
 npm-debug.log*
