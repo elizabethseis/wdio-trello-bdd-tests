@@ -2,7 +2,7 @@ node_modules/
 
 # Allure reports
 /allure-report/
-/artifacts/report/allure-results/
+/artifacts/
 
 # Environment files
 .env
