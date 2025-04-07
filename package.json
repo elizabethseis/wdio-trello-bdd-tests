@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "wdio": "wdio run ./wdio.conf.js",
-    "allure-report": "sh -c 'npx allure generate --clean artifacts/report/allure-results -o allure-report && npx allure open allure-report'"
+    "allure-report": "sh -c 'npx allure generate --clean artifacts/report/allure-results -o allure-report && npx allure open allure-report'",
+    "format": "prettier --write .",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint src --ext .js",
+    "lint:all": "npm run lint && npm run format"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@eslint/js": "^9.24.0",
     "@wdio/allure-reporter": "^9.12.3",
     "@wdio/cli": "^9.10.0",
     "@wdio/cucumber-framework": "^9.9.0",
@@ -23,6 +26,10 @@
     "@wdio/visual-service": "^6.3.2",
     "allure-commandline": "^2.33.0",
     "chai": "^5.2.0",
+    "eslint": "^9.24.0",
+    "eslint-config-google": "^0.14.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
     "wdio-html-nice-reporter": "^8.1.7"
   }
 }

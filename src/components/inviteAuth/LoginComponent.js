@@ -1,11 +1,12 @@
 class LoginComponent {
-    get loginButtonInvite() { return $('button[data-testid=login-button]'); }
+  get loginButtonInvite() {
+    return $('button[data-testid=login-button]');
+  }
 
-    async clickLoginInvite() {
-        await this.loginButtonInvite.waitForDisplayed();
-        await this.loginButtonInvite.click();
-    }
-    
+  async clickLoginInvite() {
+    await this.loginButtonInvite.waitForDisplayed();
+    await this.loginButtonInvite.click();
+  }
 }
 
 module.exports = new LoginComponent();

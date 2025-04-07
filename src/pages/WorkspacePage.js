@@ -2,11 +2,10 @@ const workspaceSettingsComponent = require('../components/board/WorkspaceSetting
 const WorkspaceMenuComponent = require('../components/board/WorkspaceMenuComponent');
 
 class WorkspacePage {
-    
-    constructor() {
-        this.workspaceSettings = workspaceSettingsComponent;
-        this.workspaceMenu = WorkspaceMenuComponent;
-    }
+  constructor() {
+    this.workspaceSettings = workspaceSettingsComponent;
+    this.workspaceMenu = WorkspaceMenuComponent;
+  }
 }
 
 module.exports = new WorkspacePage();
