@@ -7,7 +7,8 @@
     "allure-report": "sh -c 'npx allure generate --clean artifacts/report/allure-results -o allure-report && npx allure open allure-report'",
     "format": "prettier --write .",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint src --ext .js",
-    "lint:all": "npm run lint && npm run format"
+    "lint:all": "npm run lint && npm run format",
+    "test:bytag": "TAGS=$npm_config_tag npm run wdio"
   },
   "keywords": [],
   "author": "",

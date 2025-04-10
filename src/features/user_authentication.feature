@@ -1,4 +1,5 @@
-Feature: User Authentication
+@UserAuthentication
+  Feature: User Authentication
 
   Scenario: Sign Up with a new user account
     Given the user is on the "https://trello.com" home page

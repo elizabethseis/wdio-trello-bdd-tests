@@ -50,11 +50,14 @@ exports.config = {
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
   // https://saucelabs.com/platform/platform-configurator
   //
-  capabilities: [
-    {
-      browserName: 'chrome',
-    },
-  ],
+  capabilities: [{
+    browserName: 'chrome',
+    'goog:chromeOptions': {
+      args: process.env.CI
+        ? ['--headless=new', '--disable-gpu', '--window-size=1920,1080']
+        : ['--window-size=1920,1080']
+    }
+  }],
 
   //
   // ===================
@@ -149,7 +152,6 @@ exports.config = {
 
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {
-    // <string[]> (file/dir) require files before executing features
     require: ['./src/step-definitions/*.js', './src/hooks/globalHooks.js'],
     timeout: 60000,
     // <boolean> show full backtrace for errors
@@ -169,7 +171,7 @@ exports.config = {
     // <boolean> fail if there are any undefined or pending steps
     strict: false,
     // <string> (expression) only execute the features or scenarios with tags matching the expression
-    tagExpression: '',
+    tagExpression: process.env.TAGS || '',
     // <number> timeout for step definitions
     timeout: 60000,
     // <boolean> Enable this config to treat undefined definitions as warnings.

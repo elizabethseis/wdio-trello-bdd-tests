@@ -1,5 +1,6 @@
-Feature: List Management
-
+@ListManagement
+  Feature: List Management
+  
   Scenario: Create a list within a board
     Given the user is on the "https://trello.com/invite/b/67be40e0beea137631d12ffc/ATTI86805d986a57d12d9a3c5ce4fd2c9c554955CB01/mi-tablero-de-trello" home page
     When the user clicks on login into the invite page

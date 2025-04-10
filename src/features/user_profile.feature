@@ -1,3 +1,4 @@
+@UserProfile
 Feature: User Profile Management
 
   Scenario: Edit User Profile Information
